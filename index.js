@@ -8,8 +8,10 @@ const helmet = require("helmet");
 const dotenv = require("dotenv");
 const authorRoute = require("./routes/author");
 const bookRoute = require("./routes/book");
+const userRoute = require('./routes/user');
 
 dotenv.config();
+mongoose.set('strictQuery', false);
 //CONNECT DATABASE
 mongoose.connect(process.env.MONGODB_URL, () => {
   console.log("Connected to MongoDB");
@@ -23,6 +25,7 @@ app.use(morgan("common"));
 //ROUTES
 app.use("/v1/author", authorRoute);
 app.use("/v1/book", bookRoute);
+app.use('/v1/user', userRoute);
 
 app.listen(process.env.PORT || 8000, () => {
   console.log("Server is running...");
